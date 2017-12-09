@@ -2,16 +2,36 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
+	"github.com/muziyoshiz/ansible2tab/formatter"
 	"github.com/muziyoshiz/ansible2tab/parser"
 	"os"
-	"github.com/muziyoshiz/ansible2tab/formatter"
+)
+
+var (
+	formatOpt = flag.String("format", "tsv", `output format "tsv", "js", "md" or "md-code"`)
 )
 
 func main() {
+	flag.Parse()
+
+	var f formatter.Formatter
+	switch *formatOpt {
+	case "tsv":
+		f = &formatter.TsvFormatter{}
+	case "js", "json":
+		f = &formatter.JsonFormatter{}
+	case "md", "markdown":
+		f = &formatter.MarkdownFormatter{}
+	case "md-code", "markdown-code":
+		f = &formatter.MarkdownCodeFormatter{}
+	default:
+		flag.Usage()
+		os.Exit(1)
+	}
+
 	parse := parser.Parser()
-	//f := formatter.TsvFormatter{}
-	f := formatter.MarkdownCodeFormatter{}
 
 	fmt.Print(f.GetHeader())
 

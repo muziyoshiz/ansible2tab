@@ -6,14 +6,14 @@ import (
 	"fmt"
 )
 
-type defaultFormatter interface {
+type Formatter interface {
 	GetHeader() string
 	Format(result parser.Result) string
 	GetFooter() string
 }
 
 type TsvFormatter struct {
-	defaultFormatter
+	Formatter
 }
 
 func (self *TsvFormatter) GetHeader() string {
@@ -30,7 +30,7 @@ func (self *TsvFormatter) GetFooter() string {
 }
 
 type JsonFormatter struct {
-	defaultFormatter
+	Formatter
 	trailingLine bool
 }
 
@@ -53,7 +53,7 @@ func (self *JsonFormatter) GetFooter() string {
 }
 
 type MarkdownFormatter struct {
-	defaultFormatter
+	Formatter
 }
 
 func (self *MarkdownFormatter) GetHeader() string {
@@ -72,7 +72,7 @@ func (self *MarkdownFormatter) GetFooter() string {
 }
 
 type MarkdownCodeFormatter struct {
-	defaultFormatter
+	Formatter
 	trailingLine bool
 }
 
