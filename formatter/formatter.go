@@ -1,9 +1,10 @@
 package formatter
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/muziyoshiz/ansible2tab/parser"
 	"strings"
-	"fmt"
 )
 
 type Formatter interface {
@@ -39,12 +40,13 @@ func (self *JsonFormatter) GetHeader() string {
 }
 
 func (self *JsonFormatter) Format(result parser.Result) string {
-	values := strings.Join(result.Values, "\\n")
+	jsHost, _ := json.Marshal(result.Host)
+	jsValues, _ := json.Marshal(strings.Join(result.Values, "\n"))
 	if self.trailingLine {
-		return fmt.Sprintf(",\"%s\":\"%s\"", result.Host, values)
+		return fmt.Sprintf(",%s:%s", jsHost, jsValues)
 	} else {
 		self.trailingLine = true
-		return fmt.Sprintf("\"%s\":\"%s\"", result.Host, values)
+		return fmt.Sprintf("%s:%s", jsHost, jsValues)
 	}
 }
 

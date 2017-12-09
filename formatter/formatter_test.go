@@ -2,8 +2,8 @@ package formatter_test
 
 import (
 	"github.com/muziyoshiz/ansible2tab/formatter"
-	"testing"
 	"github.com/muziyoshiz/ansible2tab/parser"
+	"testing"
 )
 
 // Works with one value
@@ -81,6 +81,20 @@ func TestJsonFormatterWithTwoHosts(t *testing.T) {
 	values = append(values, "84")
 	actual = f.Format(parser.Result{"app2", values, true, 0})
 	expected = ",\"app2\":\"84\""
+
+	if actual != expected {
+		t.Fatalf("Expected '%s'; got '%s'", expected, actual)
+	}
+}
+
+// Works with one value
+func TestJsonFormatterWithSpecialChars(t *testing.T) {
+	f := formatter.JsonFormatter{}
+
+	values := make([]string, 0, 1)
+	values = append(values, "\"177\n")
+	actual := f.Format(parser.Result{"app1", values, true, 0})
+	expected := "\"app1\":\"\\\"177\\n\""
 
 	if actual != expected {
 		t.Fatalf("Expected '%s'; got '%s'", expected, actual)
