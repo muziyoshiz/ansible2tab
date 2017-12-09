@@ -2,7 +2,7 @@ package main
 
 import (
 	"bufio"
-	"flag"
+    flag "github.com/spf13/pflag"
 	"fmt"
 	"github.com/muziyoshiz/ansible2tab/formatter"
 	"github.com/muziyoshiz/ansible2tab/parser"
@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	formatOpt = flag.String("format", "tsv", `output format "tsv", "js", "md" or "md-code"`)
+	formatOpt = flag.StringP("format", "f","tsv", `output format "tsv", "js", "md" or "md-code"`)
 )
 
 func main() {
