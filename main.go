@@ -9,30 +9,24 @@ import (
 )
 
 func main() {
-	hosts := make([]string, 0, 10)
-	results := make(map[string]parser.Result)
-
 	parse := parser.Parser()
+	f := formatter.TsvFormatter{}
+
+	fmt.Print(f.GetHeader())
 
 	stdin := bufio.NewScanner(os.Stdin)
 	for stdin.Scan() {
 		line := stdin.Text()
 		res, ok := parse(line)
 		if ok {
-			hosts = append(hosts, res.Host)
-			results[res.Host] = res
+			fmt.Print(f.Format(res))
 		}
 	}
 
 	res, ok := parse(parser.EOF)
 	if ok {
-		hosts = append(hosts, res.Host)
-		results[res.Host] = res
+		fmt.Print(f.Format(res))
 	}
 
-	// Print TSV
-	format := formatter.TsvFormatter()
-	for _, host := range hosts {
-		fmt.Print(format(results[host]))
-	}
+	fmt.Print(f.GetFooter())
 }

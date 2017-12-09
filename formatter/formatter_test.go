@@ -8,11 +8,11 @@ import (
 
 // Works with one value
 func TestTsvFormatterWithOneValue(t *testing.T) {
-	format := formatter.TsvFormatter()
+	f := formatter.TsvFormatter{}
 
 	values := make([]string, 0, 1)
 	values = append(values, "177")
-	actual := format(parser.Result{"app1", values, true, 0})
+	actual := f.Format(parser.Result{"app1", values, true, 0})
 	expected := "app1\t177\n"
 
 	if actual != expected {
@@ -22,12 +22,12 @@ func TestTsvFormatterWithOneValue(t *testing.T) {
 
 // Works with two values
 func TestTsvFormatterWithTwoValues(t *testing.T) {
-	format := formatter.TsvFormatter()
+	f := formatter.TsvFormatter{}
 
 	values := make([]string, 0, 1)
 	values = append(values, "177")
 	values = append(values, "ABC")
-	actual := format(parser.Result{"app1", values, true, 0})
+	actual := f.Format(parser.Result{"app1", values, true, 0})
 	expected := "app1\t177 ABC\n"
 
 	if actual != expected {
