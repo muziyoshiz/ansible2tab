@@ -3,9 +3,9 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/muziyoshiz/ansible2table/parser"
+	"github.com/muziyoshiz/ansible2tab/parser"
 	"os"
-	"github.com/muziyoshiz/ansible2table/formatter"
+	"github.com/muziyoshiz/ansible2tab/formatter"
 )
 
 func main() {

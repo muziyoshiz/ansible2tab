@@ -1,9 +1,8 @@
-# ansible2table
+# ansible2tab
 
 
 ## TODO
 
-- Add tests
 - Build binary
 - Release binary
 - Add formatters

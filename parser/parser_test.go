@@ -1,7 +1,7 @@
 package parser_test
 
 import (
-	"github.com/muziyoshiz/ansible2table/parser"
+	"github.com/muziyoshiz/ansible2tab/parser"
 	"strings"
 	"testing"
 )
