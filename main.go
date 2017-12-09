@@ -11,7 +11,7 @@ import (
 func main() {
 	parse := parser.Parser()
 	//f := formatter.TsvFormatter{}
-	f := formatter.JsonFormatter{}
+	f := formatter.MarkdownCodeFormatter{}
 
 	fmt.Print(f.GetHeader())
 

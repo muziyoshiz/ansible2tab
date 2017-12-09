@@ -49,5 +49,48 @@ func (self *JsonFormatter) Format(result parser.Result) string {
 }
 
 func (self *JsonFormatter) GetFooter() string {
-	return "}"
+	return "}\n"
+}
+
+type MarkdownFormatter struct {
+	defaultFormatter
+}
+
+func (self *MarkdownFormatter) GetHeader() string {
+	return `|Host|Value|
+|---|---|
+`
+}
+
+func (self *MarkdownFormatter) Format(result parser.Result) string {
+	values := strings.Join(result.Values, " ")
+	return fmt.Sprintf("|%s|%s|\n", result.Host, values)
+}
+
+func (self *MarkdownFormatter) GetFooter() string {
+	return ""
+}
+
+type MarkdownCodeFormatter struct {
+	defaultFormatter
+	trailingLine bool
+}
+
+func (self *MarkdownCodeFormatter) GetHeader() string {
+	return ""
+}
+
+func (self *MarkdownCodeFormatter) Format(result parser.Result) string {
+	values := strings.Join(result.Values, "\n")
+	if self.trailingLine {
+		// We can not escape backquote inside backquotes
+		return fmt.Sprintf("\n## %s\n\n```\n%s\n```\n", result.Host, values)
+	} else {
+		self.trailingLine = true
+		return fmt.Sprintf("## %s\n\n```\n%s\n```\n", result.Host, values)
+	}
+}
+
+func (self *MarkdownCodeFormatter) GetFooter() string {
+	return ""
 }
