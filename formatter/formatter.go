@@ -28,3 +28,26 @@ func (self *TsvFormatter) Format(result parser.Result) string {
 func (self *TsvFormatter) GetFooter() string {
 	return ""
 }
+
+type JsonFormatter struct {
+	defaultFormatter
+	trailingLine bool
+}
+
+func (self *JsonFormatter) GetHeader() string {
+	return "{"
+}
+
+func (self *JsonFormatter) Format(result parser.Result) string {
+	values := strings.Join(result.Values, "\\n")
+	if self.trailingLine {
+		return fmt.Sprintf(",\"%s\":\"%s\"", result.Host, values)
+	} else {
+		self.trailingLine = true
+		return fmt.Sprintf("\"%s\":\"%s\"", result.Host, values)
+	}
+}
+
+func (self *JsonFormatter) GetFooter() string {
+	return "}"
+}

@@ -34,3 +34,56 @@ func TestTsvFormatterWithTwoValues(t *testing.T) {
 		t.Fatalf("Expected '%s'; got '%s'", expected, actual)
 	}
 }
+
+// Works with one value
+func TestJsonFormatterWithOneValue(t *testing.T) {
+	f := formatter.JsonFormatter{}
+
+	values := make([]string, 0, 1)
+	values = append(values, "177")
+	actual := f.Format(parser.Result{"app1", values, true, 0})
+	expected := "\"app1\":\"177\""
+
+	if actual != expected {
+		t.Fatalf("Expected '%s'; got '%s'", expected, actual)
+	}
+}
+
+// Works with two values
+func TestJsonFormatterWithTwoValues(t *testing.T) {
+	f := formatter.JsonFormatter{}
+
+	values := make([]string, 0, 1)
+	values = append(values, "177")
+	values = append(values, "ABC")
+	actual := f.Format(parser.Result{"app1", values, true, 0})
+	expected := "\"app1\":\"177\\nABC\""
+
+	if actual != expected {
+		t.Fatalf("Expected '%s'; got '%s'", expected, actual)
+	}
+}
+
+// Works with one value
+func TestJsonFormatterWithTwoHosts(t *testing.T) {
+	f := formatter.JsonFormatter{}
+
+	values := make([]string, 0, 1)
+	values = append(values, "177")
+	actual := f.Format(parser.Result{"app1", values, true, 0})
+	expected := "\"app1\":\"177\""
+
+	if actual != expected {
+		t.Fatalf("Expected '%s'; got '%s'", expected, actual)
+	}
+
+	values = make([]string, 0, 1)
+	values = append(values, "84")
+	actual = f.Format(parser.Result{"app2", values, true, 0})
+	expected = ",\"app2\":\"84\""
+
+	if actual != expected {
+		t.Fatalf("Expected '%s'; got '%s'", expected, actual)
+	}
+}
+

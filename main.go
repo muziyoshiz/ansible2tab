@@ -10,7 +10,8 @@ import (
 
 func main() {
 	parse := parser.Parser()
-	f := formatter.TsvFormatter{}
+	//f := formatter.TsvFormatter{}
+	f := formatter.JsonFormatter{}
 
 	fmt.Print(f.GetHeader())
 
