@@ -16,7 +16,7 @@ func TestParseWithOneHost(t *testing.T) {
 		t.Fatalf("Failed to create test data: length = %d", len(lines))
 	}
 
-	parse := parser.Parse()
+	parse := parser.Parser()
 
 	res, ok := parse(lines[0])
 	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
@@ -64,7 +64,7 @@ app2 | SUCCESS | rc=0 >>
 		t.Fatalf("Failed to create test data: length = %d", len(lines))
 	}
 
-	parse := parser.Parse()
+	parse := parser.Parser()
 
 	res, ok := parse(lines[0])
 	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
@@ -132,7 +132,7 @@ func TestParseWithNoHost(t *testing.T) {
 		t.Fatalf("Failed to create test data: length = %d", len(lines))
 	}
 
-	parse := parser.Parse()
+	parse := parser.Parser()
 
 	res, ok := parse(lines[0])
 	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
@@ -170,7 +170,7 @@ ABC
 		t.Fatalf("Failed to create test data: length = %d", len(lines))
 	}
 
-	parse := parser.Parse()
+	parse := parser.Parser()
 
 	res, ok := parse(lines[0])
 	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
@@ -214,7 +214,7 @@ func TestParseWithNoLine(t *testing.T) {
 		t.Fatalf("Failed to create test data: length = %d", len(lines))
 	}
 
-	parse := parser.Parse()
+	parse := parser.Parser()
 
 	res, ok := parse(lines[0])
 	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
@@ -245,7 +245,7 @@ func TestParseWithNoLine(t *testing.T) {
 func TestParseWithoutLinefeed(t *testing.T) {
 	line := "app1 | SUCCESS | rc=0 >>"
 
-	parse := parser.Parse()
+	parse := parser.Parser()
 
 	res, ok := parse(line)
 	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {

@@ -12,7 +12,7 @@ func main() {
 	hosts := make([]string, 0, 10)
 	values := make(map[string][]string)
 
-	parse := parser.Parse()
+	parse := parser.Parser()
 
 	stdin := bufio.NewScanner(os.Stdin)
 	for stdin.Scan() {

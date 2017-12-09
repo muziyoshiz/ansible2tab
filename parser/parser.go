@@ -14,7 +14,7 @@ type Result struct {
 	Rc        int
 }
 
-func Parse() func(string) (Result, bool) {
+func Parser() func(string) (Result, bool) {
 	var header = regexp.MustCompile(`([^ ]+) \| (SUCCESS|FAILED) \| rc=(\d+) >>`)
 	var host, prevHost = "", ""
 	var values, prevValues = make([]string, 0, 10), make([]string, 0, 10)
