@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"github.com/muziyoshiz/ansible2table/parser"
 	"os"
-	"strings"
+	"github.com/muziyoshiz/ansible2table/formatter"
 )
 
 func main() {
 	hosts := make([]string, 0, 10)
-	values := make(map[string][]string)
+	results := make(map[string]parser.Result)
 
 	parse := parser.Parser()
 
@@ -20,19 +20,19 @@ func main() {
 		res, ok := parse(line)
 		if ok {
 			hosts = append(hosts, res.Host)
-			values[res.Host] = res.Values
+			results[res.Host] = res
 		}
 	}
 
 	res, ok := parse(parser.EOF)
 	if ok {
 		hosts = append(hosts, res.Host)
-		values[res.Host] = res.Values
+		results[res.Host] = res
 	}
 
 	// Print TSV
+	format := formatter.TsvFormatter()
 	for _, host := range hosts {
-		value := strings.Join(values[host], " ")
-		fmt.Printf("%s\t%s\n", host, value)
+		fmt.Print(format(results[host]))
 	}
 }
