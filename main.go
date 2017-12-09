@@ -11,10 +11,16 @@ import (
 
 var (
 	formatOpt = flag.StringP("format", "f","tsv", `output format "tsv", "js", "md" or "md-code"`)
+	versionOpt = flag.BoolP("version", "v", false, `version`)
 )
 
 func main() {
 	flag.Parse()
+
+	if *versionOpt {
+		fmt.Printf("ansible2tab version: %s (rev: %s)\n", version, revision)
+		os.Exit(0)
+	}
 
 	var f formatter.Formatter
 	switch *formatOpt {

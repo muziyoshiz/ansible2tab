@@ -6,6 +6,7 @@
 ### Setup
 
 ```
+$ go get github.com/motemen/gobump
 $ go get github.com/mitchellh/gox
 $ brew tap tcnksm/ghr
 $ brew install ghr
@@ -14,7 +15,8 @@ $ brew install ghr
 ### Build
 
 ```
-$ gox -output "pkg/{{.Dir}}_{{.OS}}_{{.Arch}}"
+$ gobump (major|minor|patch|set <version>)
+$ gox -output "pkg/{{.Dir}}_{{.OS}}_{{.Arch}}" -ldflags "-X main.revision=$(git rev-parse --short HEAD)"
 ```
 
 ### Release
