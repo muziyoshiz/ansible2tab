@@ -58,7 +58,8 @@ $ brew install ghr
 ### Build
 
 ```
-$ gox -output "pkg/{{.Dir}}_{{.OS}}_{{.Arch}}" -ldflags "-X main.revision=$(git rev-parse --short HEAD)"
+$ gox -os "darwin linux windows" -arch "386 amd64" -output "pkg/{{.Dir}}_{{.OS}}_{{.Arch}}/{{.Dir}}" -ldflags "-X main.revision=$(git rev-parse --short HEAD)"
+$ for f in `ls pkg`; { zip -j pkg/${f}.zip pkg/${f}/ansible2tab* && rm -rf pkg/${f}; }
 ```
 
 ### Release
