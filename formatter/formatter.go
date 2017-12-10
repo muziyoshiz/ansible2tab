@@ -96,3 +96,44 @@ func (self *MarkdownCodeFormatter) Format(result parser.Result) string {
 func (self *MarkdownCodeFormatter) GetFooter() string {
 	return ""
 }
+
+type BacklogFormatter struct {
+	Formatter
+}
+
+func (self *BacklogFormatter) GetHeader() string {
+	return "|Host|Value|h\n"
+}
+
+func (self *BacklogFormatter) Format(result parser.Result) string {
+	values := strings.Join(result.Values, " ")
+	return fmt.Sprintf("|%s|%s|\n", result.Host, values)
+}
+
+func (self *BacklogFormatter) GetFooter() string {
+	return ""
+}
+
+type BacklogCodeFormatter struct {
+	Formatter
+	trailingLine bool
+}
+
+func (self *BacklogCodeFormatter) GetHeader() string {
+	return ""
+}
+
+func (self *BacklogCodeFormatter) Format(result parser.Result) string {
+	values := strings.Join(result.Values, "\n")
+	if self.trailingLine {
+		// We can not escape backquote inside backquotes
+		return fmt.Sprintf("\n** %s\n\n{code}\n%s\n{/code}\n", result.Host, values)
+	} else {
+		self.trailingLine = true
+		return fmt.Sprintf("** %s\n\n{code}\n%s\n{/code}\n", result.Host, values)
+	}
+}
+
+func (self *BacklogCodeFormatter) GetFooter() string {
+	return ""
+}

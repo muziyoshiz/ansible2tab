@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	formatOpt = flag.StringP("format", "f","tsv", `output format "tsv", "js", "md" or "md-code"`)
+	formatOpt = flag.StringP("format", "f","tsv", `output format "tsv", "js", "md", "md-code", "blg" or "blg-code"`)
 	versionOpt = flag.BoolP("version", "v", false, `version`)
 )
 
@@ -32,6 +32,10 @@ func main() {
 		f = &formatter.MarkdownFormatter{}
 	case "md-code", "markdown-code":
 		f = &formatter.MarkdownCodeFormatter{}
+	case "blg", "backlog":
+		f = &formatter.BacklogFormatter{}
+	case "blg-code", "backlog-code":
+		f = &formatter.BacklogCodeFormatter{}
 	default:
 		flag.Usage()
 		os.Exit(1)

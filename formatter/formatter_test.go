@@ -182,3 +182,85 @@ func TestMarkdownCodeFormatterWithTwoHosts(t *testing.T) {
 		t.Fatalf("Expected '%s'; got '%s'", expected, actual)
 	}
 }
+
+// Works with one value
+func TestBacklogFormatterWithOneValue(t *testing.T) {
+	f := formatter.BacklogFormatter{}
+
+	values := make([]string, 0, 1)
+	values = append(values, "177")
+	actual := f.Format(parser.Result{"app1", values, true, 0})
+	expected := "|app1|177|\n"
+
+	if actual != expected {
+		t.Fatalf("Expected '%s'; got '%s'", expected, actual)
+	}
+}
+
+// Works with two values
+func TestBacklogFormatterWithTwoValues(t *testing.T) {
+	f := formatter.BacklogFormatter{}
+
+	values := make([]string, 0, 1)
+	values = append(values, "177")
+	values = append(values, "ABC")
+	actual := f.Format(parser.Result{"app1", values, true, 0})
+	expected := "|app1|177 ABC|\n"
+
+	if actual != expected {
+		t.Fatalf("Expected '%s'; got '%s'", expected, actual)
+	}
+}
+
+// Works with one value
+func TestBacklogCodeFormatterWithOneValue(t *testing.T) {
+	f := formatter.BacklogCodeFormatter{}
+
+	values := make([]string, 0, 1)
+	values = append(values, "177")
+	actual := f.Format(parser.Result{"app1", values, true, 0})
+	// We can not escape backquote inside backquotes
+	expected := "** app1\n\n{code}\n177\n{/code}\n"
+
+	if actual != expected {
+		t.Fatalf("Expected '%s'; got '%s'", expected, actual)
+	}
+}
+
+// Works with two values
+func TestBacklogCodeFormatterWithTwoValues(t *testing.T) {
+	f := formatter.BacklogCodeFormatter{}
+
+	values := make([]string, 0, 1)
+	values = append(values, "177")
+	values = append(values, "ABC")
+	actual := f.Format(parser.Result{"app1", values, true, 0})
+	expected := "** app1\n\n{code}\n177\nABC\n{/code}\n"
+
+	if actual != expected {
+		t.Fatalf("Expected '%s'; got '%s'", expected, actual)
+	}
+}
+
+// Works with one value
+func TestBacklogCodeFormatterWithTwoHosts(t *testing.T) {
+	f := formatter.BacklogCodeFormatter{}
+
+	values := make([]string, 0, 1)
+	values = append(values, "177")
+	actual := f.Format(parser.Result{"app1", values, true, 0})
+	expected := "** app1\n\n{code}\n177\n{/code}\n"
+
+	if actual != expected {
+		t.Fatalf("Expected '%s'; got '%s'", expected, actual)
+	}
+
+	values = make([]string, 0, 1)
+	values = append(values, "84")
+	actual = f.Format(parser.Result{"app2", values, true, 0})
+	expected = "\n** app2\n\n{code}\n84\n{/code}\n"
+
+	if actual != expected {
+		t.Fatalf("Expected '%s'; got '%s'", expected, actual)
+	}
+}
