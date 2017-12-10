@@ -1,6 +1,6 @@
 # ansible2tab
 
-Convert output of ansible command to TSV/JSON/Markdown
+Convert output of ansible command to TSV/JSON/Markdown/Backlog
 
 ## Description
 
@@ -50,7 +50,6 @@ $ go get github.com/muziyoshiz/ansible2tab
 ### Setup
 
 ```
-$ go get github.com/motemen/gobump
 $ go get github.com/mitchellh/gox
 $ brew tap tcnksm/ghr
 $ brew install ghr
@@ -59,7 +58,6 @@ $ brew install ghr
 ### Build
 
 ```
-$ gobump (major|minor|patch|set <version>)
 $ gox -output "pkg/{{.Dir}}_{{.OS}}_{{.Arch}}" -ldflags "-X main.revision=$(git rev-parse --short HEAD)"
 ```
 
