@@ -69,20 +69,33 @@ $ go get -u github.com/muziyoshiz/ansible2tab
 $ go get github.com/mitchellh/gox
 $ brew tap tcnksm/ghr
 $ brew install ghr
+$ export GITHUB_USER="..."
+$ export GITHUB_TOKEN="..."
 ```
 
-### Build (TODO: Makefile)
+### Build
 
 ```
-$ gox -os "darwin linux windows" -arch "386 amd64" -output "pkg/{{.Dir}}_{{.OS}}_{{.Arch}}/{{.Dir}}" -ldflags "-X main.revision=$(git rev-parse --short HEAD)"
-$ for f in `ls pkg`; { zip -j pkg/${f}.zip pkg/${f}/ansible2tab* && rm -rf pkg/${f}; }
+$ make build
 ```
 
-### Release (TODO: Makefile)
+### Test
 
 ```
-$ export GITHUB_TOKEN="....."
-$ ghr -u muziyoshiz v<version> pkg/
+$ make test-all
+```
+
+### Release 
+
+```
+$ make package
+$ make release
+```
+
+### Update Homebrew formula in homebrew-ansible2tab
+
+```
+$ make brew
 ```
 
 ## License
