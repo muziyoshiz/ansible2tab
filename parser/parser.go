@@ -5,8 +5,10 @@ import (
 	"strconv"
 )
 
+// EOF is a special string to teach the end of ansible output to the formatters
 const EOF string = "EOF"
 
+// Result means a result against one host
 type Result struct {
 	Host      string
 	Values    []string
@@ -14,6 +16,7 @@ type Result struct {
 	Rc        int
 }
 
+// Parser returns a closure to parse ansible output
 func Parser() func(string) (Result, bool) {
 	var header = regexp.MustCompile(`([^ ]+) \| (SUCCESS|FAILED) \| rc=(\d+) >>`)
 	var host, prevHost = "", ""

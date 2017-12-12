@@ -25,9 +25,9 @@ func main() {
 	var f formatter.Formatter
 	switch *formatOpt {
 	case "tsv":
-		f = &formatter.TsvFormatter{}
+		f = &formatter.TSVFormatter{}
 	case "js", "json":
-		f = &formatter.JsonFormatter{}
+		f = &formatter.JSONFormatter{}
 	case "md", "markdown":
 		f = &formatter.MarkdownFormatter{}
 	case "md-code", "markdown-code":

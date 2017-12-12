@@ -1,5 +1,5 @@
 VERSION = $(shell grep 'const version' version.go | sed -E 's/.*"(.+)"$$/\1/')
-PACKAGES = "./parser ./formatter"
+PACKAGES = ./parser ./formatter
 FORMULA = "../homebrew-ansible2tab/ansible2tab.rb"
 
 all: build package upload
@@ -33,7 +33,7 @@ test-race:
 	go test -v -race ${PACKAGES}
 
 vet:
-	go vet ${PACKAGES}
+	go vet -composites=false ${PACKAGES}
 
 lint:
 	@go get github.com/golang/lint/golint

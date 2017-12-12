@@ -7,8 +7,8 @@ import (
 )
 
 // Works with one value
-func TestTsvFormatterWithOneValue(t *testing.T) {
-	f := formatter.TsvFormatter{}
+func TestTSVFormatterWithOneValue(t *testing.T) {
+	f := formatter.TSVFormatter{}
 
 	values := make([]string, 0, 1)
 	values = append(values, "177")
@@ -21,8 +21,8 @@ func TestTsvFormatterWithOneValue(t *testing.T) {
 }
 
 // Works with two values
-func TestTsvFormatterWithTwoValues(t *testing.T) {
-	f := formatter.TsvFormatter{}
+func TestTSVFormatterWithTwoValues(t *testing.T) {
+	f := formatter.TSVFormatter{}
 
 	values := make([]string, 0, 1)
 	values = append(values, "177")
@@ -36,8 +36,8 @@ func TestTsvFormatterWithTwoValues(t *testing.T) {
 }
 
 // Works with one value
-func TestJsonFormatterWithOneValue(t *testing.T) {
-	f := formatter.JsonFormatter{}
+func TestJSONFormatterWithOneValue(t *testing.T) {
+	f := formatter.JSONFormatter{}
 
 	values := make([]string, 0, 1)
 	values = append(values, "177")
@@ -50,8 +50,8 @@ func TestJsonFormatterWithOneValue(t *testing.T) {
 }
 
 // Works with two values
-func TestJsonFormatterWithTwoValues(t *testing.T) {
-	f := formatter.JsonFormatter{}
+func TestJSONFormatterWithTwoValues(t *testing.T) {
+	f := formatter.JSONFormatter{}
 
 	values := make([]string, 0, 1)
 	values = append(values, "177")
@@ -65,8 +65,8 @@ func TestJsonFormatterWithTwoValues(t *testing.T) {
 }
 
 // Works with one value
-func TestJsonFormatterWithTwoHosts(t *testing.T) {
-	f := formatter.JsonFormatter{}
+func TestJSONFormatterWithTwoHosts(t *testing.T) {
+	f := formatter.JSONFormatter{}
 
 	values := make([]string, 0, 1)
 	values = append(values, "177")
@@ -88,8 +88,8 @@ func TestJsonFormatterWithTwoHosts(t *testing.T) {
 }
 
 // Works with one value
-func TestJsonFormatterWithSpecialChars(t *testing.T) {
-	f := formatter.JsonFormatter{}
+func TestJSONFormatterWithSpecialChars(t *testing.T) {
+	f := formatter.JSONFormatter{}
 
 	values := make([]string, 0, 1)
 	values = append(values, "\"177\n")
