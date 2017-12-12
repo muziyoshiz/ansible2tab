@@ -22,7 +22,7 @@ brew:
 	$(eval CHECKSUM := $(shell shasum -a 256 pkg/ansible2tab_darwin_amd64.zip | awk '{print $$1;}'))
 	$(shell sed -i '' -E 's/url .*$$/url ${URL}/' ${FORMULA})
 	$(shell sed -i '' -E 's/version .*$$/version \"v${VERSION}\"/' ${FORMULA})
-	$(shell sed -i '' -E 's/sha256 .*$$/sha256 \"v${CHECKSUM}\"/' ${FORMULA})
+	$(shell sed -i '' -E 's/sha256 .*$$/sha256 \"${CHECKSUM}\"/' ${FORMULA})
 
 test-all: vet lint test
 
