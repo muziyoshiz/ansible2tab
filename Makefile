@@ -5,7 +5,7 @@ FORMULA = "../homebrew-ansible2tab/ansible2tab.rb"
 all: build package upload
 
 build:
-	gox -os "darwin linux windows" -arch "386 amd64" -output "pkg/{{.Dir}}_{{.OS}}_{{.Arch}}/{{.Dir}}" -ldflags "-X main.revision=$(git rev-parse --short HEAD)"
+	gox -os "darwin linux windows" -arch "386 amd64" -output "pkg/{{.Dir}}_{{.OS}}_{{.Arch}}/{{.Dir}}" -ldflags "-X main.revision=$(shell git rev-parse --short HEAD)"
 
 install:
 	go install
