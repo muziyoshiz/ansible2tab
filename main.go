@@ -2,15 +2,15 @@ package main
 
 import (
 	"bufio"
-    flag "github.com/spf13/pflag"
 	"fmt"
 	"github.com/muziyoshiz/ansible2tab/formatter"
 	"github.com/muziyoshiz/ansible2tab/parser"
+	flag "github.com/spf13/pflag"
 	"os"
 )
 
 var (
-	formatOpt = flag.StringP("format", "f","tsv", `output format "tsv", "js", "md", "md-code", "blg" or "blg-code"`)
+	formatOpt  = flag.StringP("format", "f", "tsv", `output format "tsv", "js", "md", "md-code", "blg" or "blg-code"`)
 	versionOpt = flag.BoolP("version", "v", false, `version`)
 )
 
@@ -45,13 +45,17 @@ func main() {
 
 	fmt.Print(f.GetHeader())
 
-	stdin := bufio.NewScanner(os.Stdin)
-	for stdin.Scan() {
-		line := stdin.Text()
+	scanner := bufio.NewScanner(os.Stdin)
+	for scanner.Scan() {
+		line := scanner.Text()
 		res, ok := parse(line)
 		if ok {
 			fmt.Print(f.Format(res))
 		}
+	}
+
+	if err := scanner.Err(); err != nil {
+		fmt.Fprintln(os.Stderr, "Reading standard input: ", err)
 	}
 
 	res, ok := parse(parser.EOF)
