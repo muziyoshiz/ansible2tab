@@ -86,14 +86,8 @@ $ make test-all
 ### Release 
 
 ```
-$ make package
-$ make upload
-```
-
-### Update Homebrew formula in ../homebrew-ansible2tab
-
-```
 $ make brew
+$ make upload
 ```
 
 ## License
