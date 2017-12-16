@@ -1,28 +1,38 @@
+NAME = ansible2tab
 VERSION = $(shell grep 'const version' version.go | sed -E 's/.*"(.+)"$$/\1/')
-PACKAGES = ./parser ./formatter
-FORMULA = "../homebrew-ansible2tab/ansible2tab.rb"
+COMMIT = $(shell git describe --always)
+PACKAGES = $(shell go list ./...)
+FORMULA = ../homebrew-$(NAME)/$(NAME).rb
+EXTERNAL_TOOLS = github.com/mitchellh/gox github.com/tcnksm/ghr
 
-all: build package upload
+default: test
 
+# Install external tools for this project
+bootstrap:
+	@for tool in $(EXTERNAL_TOOLS) ; do \
+		echo "Installing $$tool" ; \
+    	go get $$tool; \
+done
+
+# Build binary on './bin' directory for local use
 build:
-	gox -os "darwin linux windows" -arch "386 amd64" -output "pkg/{{.Dir}}_{{.OS}}_{{.Arch}}/{{.Dir}}" -ldflags "-X main.revision=$(shell git rev-parse --short HEAD)"
+	go build -ldflags "-X main.commit=$(COMMIT)" -o bin/$(NAME)
 
+# Install binary on $GOPATH/bin directory
 install:
-	go install
+	go install -ldflags "-X main.commit=$(COMMIT)"
 
-package: build
-	@for f in $(shell ls pkg); { zip -j pkg/$$f.zip pkg/$$f/ansible2tab* && rm -rf pkg/$$f; }
+# Build zip files on './pkg/dist/$(VERSION)' directory
+package:
+	@sh -c "'$(CURDIR)/scripts/package.sh' $(NAME) $(VERSION) $(COMMIT)"
 
-release:
-	ghr -u ${GITHUB_USER} v${VERSION} pkg/
+# Overwrite ../homebrew-$(NAME)/$(NAME).rb
+brew: package
+	go run release/main.go $(NAME) $(VERSION) pkg/dist/$(VERSION)/$(NAME)_$(VERSION)_darwin_amd64.zip > ../homebrew-$(NAME)/$(NAME).rb
 
-# It works but shows "make: Nothing to be done for `brew'."
-brew:
-	$(eval URL := "https:\/\/github.com\/muziyoshiz\/ansible2tab\/releases\/download\/v${VERSION}\/ansible2tab_darwin_amd64.zip")
-	$(eval CHECKSUM := $(shell shasum -a 256 pkg/ansible2tab_darwin_amd64.zip | awk '{print $$1;}'))
-	$(shell sed -i '' -E 's/url .*$$/url ${URL}/' ${FORMULA})
-	$(shell sed -i '' -E 's/version .*$$/version \"v${VERSION}\"/' ${FORMULA})
-	$(shell sed -i '' -E 's/sha256 .*$$/sha256 \"${CHECKSUM}\"/' ${FORMULA})
+# Release zip files to GitHub
+upload:
+	ghr -u $(GITHUB_USER) $(VERSION) pkg/dist/$(VERSION)
 
 test-all: vet lint test
 
@@ -39,7 +49,4 @@ lint:
 	@go get github.com/golang/lint/golint
 	go list ./... | grep -v vendor | xargs -n1 golint 
 
-clean:
-	-rm -rf pkg
-
-.PHONY: all build install package release brew test-all test test-race vet lint clean
+.PHONY: bootstrap build install package brew upload test-all test test-race vet lint

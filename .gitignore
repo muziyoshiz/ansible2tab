@@ -13,7 +13,9 @@
 # Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
 .glide/
 
-# Build directory
+# Build directory for local use
+bin/
+# Build directory for package
 pkg/
 
 # IntelliJ IDEA

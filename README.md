@@ -66,9 +66,7 @@ $ go get -u github.com/muziyoshiz/ansible2tab
 ### Setup
 
 ```
-$ go get github.com/mitchellh/gox
-$ brew tap tcnksm/ghr
-$ brew install ghr
+$ make bootstrap
 $ export GITHUB_USER="..."
 $ export GITHUB_TOKEN="..."
 ```
@@ -89,10 +87,10 @@ $ make test-all
 
 ```
 $ make package
-$ make release
+$ make upload
 ```
 
-### Update Homebrew formula in homebrew-ansible2tab
+### Update Homebrew formula in ../homebrew-ansible2tab
 
 ```
 $ make brew

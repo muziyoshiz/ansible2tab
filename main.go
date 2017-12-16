@@ -3,23 +3,34 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"os"
+
 	"github.com/muziyoshiz/ansible2tab/formatter"
 	"github.com/muziyoshiz/ansible2tab/parser"
 	flag "github.com/spf13/pflag"
-	"os"
 )
 
 var (
 	formatOpt  = flag.StringP("format", "f", "tsv", `output format "tsv", "js", "md", "md-code", "blg" or "blg-code"`)
 	versionOpt = flag.BoolP("version", "v", false, `version`)
+	helpOpt    = flag.BoolP("help", "h", false, `help`)
 )
 
 func main() {
+	os.Exit(_main())
+}
+
+func _main() int {
 	flag.Parse()
 
+	if *helpOpt {
+		flag.PrintDefaults()
+		return 0
+	}
+
 	if *versionOpt {
-		fmt.Printf("ansible2tab version: %s (rev: %s)\n", version, revision)
-		os.Exit(0)
+		fmt.Printf("ansible2tab version: %s (commit: %s)\n", version, commit)
+		return 0
 	}
 
 	var f formatter.Formatter
@@ -37,8 +48,8 @@ func main() {
 	case "blg-code", "backlog-code":
 		f = &formatter.BacklogCodeFormatter{}
 	default:
-		flag.Usage()
-		os.Exit(1)
+		flag.PrintDefaults()
+		return 1
 	}
 
 	parse := parser.Parser()
@@ -64,4 +75,5 @@ func main() {
 	}
 
 	fmt.Print(f.GetFooter())
+	return 0
 }
