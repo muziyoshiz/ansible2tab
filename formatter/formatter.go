@@ -3,8 +3,9 @@ package formatter
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/muziyoshiz/ansible2tab/parser"
 	"strings"
+
+	"github.com/muziyoshiz/ansible2tab/parser"
 )
 
 // Formatter provides basic features for formatting ansible outputs.

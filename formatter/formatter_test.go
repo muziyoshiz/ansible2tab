@@ -1,9 +1,10 @@
 package formatter_test
 
 import (
+	"testing"
+
 	"github.com/muziyoshiz/ansible2tab/formatter"
 	"github.com/muziyoshiz/ansible2tab/parser"
-	"testing"
 )
 
 // Works with one value

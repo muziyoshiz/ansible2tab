@@ -1,9 +1,10 @@
 package parser_test
 
 import (
-	"github.com/muziyoshiz/ansible2tab/parser"
 	"strings"
 	"testing"
+
+	"github.com/muziyoshiz/ansible2tab/parser"
 )
 
 // Works with one host
