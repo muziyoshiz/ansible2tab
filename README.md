@@ -71,6 +71,13 @@ $ export GITHUB_USER="..."
 $ export GITHUB_TOKEN="..."
 ```
 
+(optional)
+
+```
+$ go get -u gopkg.in/alecthomas/gometalinter.v2
+$ gometalinter -i -u
+```
+
 ### Build
 
 ```

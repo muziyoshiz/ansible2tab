@@ -20,7 +20,7 @@ func TestParseWithOneHost(t *testing.T) {
 	parse := parser.Parser()
 
 	res, ok := parse(lines[0])
-	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
+	if res.Host != "" || len(res.Values) != 0 || res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected nil object; got %+v", res)
 	}
 	if ok {
@@ -28,7 +28,7 @@ func TestParseWithOneHost(t *testing.T) {
 	}
 
 	res, ok = parse(lines[1])
-	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
+	if res.Host != "" || len(res.Values) != 0 || res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected nil object; got %+v", res)
 	}
 	if ok {
@@ -36,7 +36,7 @@ func TestParseWithOneHost(t *testing.T) {
 	}
 
 	res, ok = parse(lines[2])
-	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
+	if res.Host != "" || len(res.Values) != 0 || res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected nil object; got %+v", res)
 	}
 	if ok {
@@ -44,7 +44,7 @@ func TestParseWithOneHost(t *testing.T) {
 	}
 
 	res, ok = parse(parser.EOF)
-	if res.Host != "app1" || len(res.Values) != 1 || res.Values[0] != "177" || res.Succeeded != true || res.Rc != 0 {
+	if res.Host != "app1" || len(res.Values) != 1 || res.Values[0] != "177" || !res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected Result; got %+v", res)
 	}
 	if !ok {
@@ -68,7 +68,7 @@ app2 | SUCCESS | rc=0 >>
 	parse := parser.Parser()
 
 	res, ok := parse(lines[0])
-	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
+	if res.Host != "" || len(res.Values) != 0 || res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected nil object; got %+v", res)
 	}
 	if ok {
@@ -76,7 +76,7 @@ app2 | SUCCESS | rc=0 >>
 	}
 
 	res, ok = parse(lines[1])
-	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
+	if res.Host != "" || len(res.Values) != 0 || res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected nil object; got %+v", res)
 	}
 	if ok {
@@ -84,7 +84,7 @@ app2 | SUCCESS | rc=0 >>
 	}
 
 	res, ok = parse(lines[2])
-	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
+	if res.Host != "" || len(res.Values) != 0 || res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected nil object; got %+v", res)
 	}
 	if ok {
@@ -92,7 +92,7 @@ app2 | SUCCESS | rc=0 >>
 	}
 
 	res, ok = parse(lines[3])
-	if res.Host != "app1" || len(res.Values) != 1 || res.Values[0] != "177" || res.Succeeded != true || res.Rc != 0 {
+	if res.Host != "app1" || len(res.Values) != 1 || res.Values[0] != "177" || !res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected Result; got %+v", res)
 	}
 	if !ok {
@@ -100,7 +100,7 @@ app2 | SUCCESS | rc=0 >>
 	}
 
 	res, ok = parse(lines[4])
-	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
+	if res.Host != "" || len(res.Values) != 0 || res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected nil object; got %+v", res)
 	}
 	if ok {
@@ -108,7 +108,7 @@ app2 | SUCCESS | rc=0 >>
 	}
 
 	res, ok = parse(lines[5])
-	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
+	if res.Host != "" || len(res.Values) != 0 || res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected nil object; got %+v", res)
 	}
 	if ok {
@@ -116,7 +116,7 @@ app2 | SUCCESS | rc=0 >>
 	}
 
 	res, ok = parse(parser.EOF)
-	if res.Host != "app2" || len(res.Values) != 1 || res.Values[0] != "84" || res.Succeeded != true || res.Rc != 0 {
+	if res.Host != "app2" || len(res.Values) != 1 || res.Values[0] != "84" || !res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected Result; got %+v", res)
 	}
 	if !ok {
@@ -136,7 +136,7 @@ func TestParseWithNoHost(t *testing.T) {
 	parse := parser.Parser()
 
 	res, ok := parse(lines[0])
-	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
+	if res.Host != "" || len(res.Values) != 0 || res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected nil object; got %+v", res)
 	}
 	if ok {
@@ -144,7 +144,7 @@ func TestParseWithNoHost(t *testing.T) {
 	}
 
 	res, ok = parse(lines[1])
-	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
+	if res.Host != "" || len(res.Values) != 0 || res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected nil object; got %+v", res)
 	}
 	if ok {
@@ -152,7 +152,7 @@ func TestParseWithNoHost(t *testing.T) {
 	}
 
 	res, ok = parse(parser.EOF)
-	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
+	if res.Host != "" || len(res.Values) != 0 || res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected nil object; got %+v", res)
 	}
 	if ok {
@@ -174,7 +174,7 @@ ABC
 	parse := parser.Parser()
 
 	res, ok := parse(lines[0])
-	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
+	if res.Host != "" || len(res.Values) != 0 || res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected nil object; got %+v", res)
 	}
 	if ok {
@@ -182,7 +182,7 @@ ABC
 	}
 
 	res, ok = parse(lines[1])
-	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
+	if res.Host != "" || len(res.Values) != 0 || res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected nil object; got %+v", res)
 	}
 	if ok {
@@ -190,7 +190,7 @@ ABC
 	}
 
 	res, ok = parse(lines[2])
-	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
+	if res.Host != "" || len(res.Values) != 0 || res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected nil object; got %+v", res)
 	}
 	if ok {
@@ -198,7 +198,7 @@ ABC
 	}
 
 	res, ok = parse(parser.EOF)
-	if res.Host != "app1" || len(res.Values) != 2 || res.Values[0] != "177" || res.Values[1] != "ABC" || res.Succeeded != true || res.Rc != 0 {
+	if res.Host != "app1" || len(res.Values) != 2 || res.Values[0] != "177" || res.Values[1] != "ABC" || !res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected Result; got %+v", res)
 	}
 	if !ok {
@@ -218,7 +218,7 @@ func TestParseWithNoLine(t *testing.T) {
 	parse := parser.Parser()
 
 	res, ok := parse(lines[0])
-	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
+	if res.Host != "" || len(res.Values) != 0 || res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected nil object; got %+v", res)
 	}
 	if ok {
@@ -226,7 +226,7 @@ func TestParseWithNoLine(t *testing.T) {
 	}
 
 	res, ok = parse(lines[1])
-	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
+	if res.Host != "" || len(res.Values) != 0 || res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected nil object; got %+v", res)
 	}
 	if ok {
@@ -234,7 +234,7 @@ func TestParseWithNoLine(t *testing.T) {
 	}
 
 	res, ok = parse(parser.EOF)
-	if res.Host != "app1" || len(res.Values) != 0 || res.Succeeded != true || res.Rc != 0 {
+	if res.Host != "app1" || len(res.Values) != 0 || !res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected Result; got %+v", res)
 	}
 	if !ok {
@@ -249,7 +249,7 @@ func TestParseWithoutLinefeed(t *testing.T) {
 	parse := parser.Parser()
 
 	res, ok := parse(line)
-	if res.Host != "" || len(res.Values) != 0 || res.Succeeded != false || res.Rc != 0 {
+	if res.Host != "" || len(res.Values) != 0 || res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected nil object; got %+v", res)
 	}
 	if ok {
@@ -257,7 +257,7 @@ func TestParseWithoutLinefeed(t *testing.T) {
 	}
 
 	res, ok = parse(parser.EOF)
-	if res.Host != "app1" || len(res.Values) != 0 || res.Succeeded != true || res.Rc != 0 {
+	if res.Host != "app1" || len(res.Values) != 0 || !res.Succeeded || res.Rc != 0 {
 		t.Fatalf("Expected Result; got %+v", res)
 	}
 	if !ok {
